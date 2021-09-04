@@ -7,6 +7,7 @@ def spaces():
     num = 0
     for char in column:
         if char == '\t':
+            # Terminal/Command Prompt tab spacing is 8
             num = num + 8
         else:
             num = num + 1
