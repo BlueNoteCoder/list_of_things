@@ -7,7 +7,7 @@ def spaces():
     num = 0
     for char in column:
         if char == '\t':
-            num = num + 4
+            num = num + 8
         else:
             num = num + 1
 
