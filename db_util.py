@@ -65,6 +65,19 @@ class DBUtil:
 
         print('Database Created')
 
+    def get_entries(self):
+        entries = []
+        stmt = """SELECT * FROM {table_name}""".format(table_name=self.book_table)
+
+        cursor = self.conn.cursor()
+        cursor.execute(stmt)
+        rows = cursor.fetchall()
+
+        for row in rows:
+            entries.append(row)
+
+        return entries
+
     def add_book_to_db(self, title, author):
         stmt = """INSERT INTO {table_name}(book_title, author_name)
                     VALUES(?,?) """.format(table_name=self.book_table)
@@ -75,3 +88,4 @@ class DBUtil:
         cursor.execute(stmt, info)
         self.conn.commit()
         print('Added book to database')
+
