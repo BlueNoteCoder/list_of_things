@@ -2,17 +2,24 @@ def spaces():
     """Calculates the number of spaces in each column."""
 
     # Copied the text from the list_books_page function
-    column = '|\t\t\tTITLE\t\t\t|\t\t\tAUTHOR\t\t\t|'
-
+    columns = '|\tID\t|\t\tTITLE\t\t|\t\tAUTHOR\t\t|'
+    column = columns.split('|')
+    col_num = 1
     num = 0
-    for char in column:
-        if char == '\t':
-            # Terminal/Command Prompt tab spacing is 8
-            num = num + 8
-        else:
-            num = num + 1
+    column_spacing = []
 
-    return int(num / 2)
+    while col_num < 4:
+        for char in column[col_num]:
+            if char == '\t':
+                # Terminal/Command Prompt tab spacing is 8
+                num = num + 8
+            else:
+                num = num + 1
+        column_spacing.append(num)
+        num = 0
+        col_num += 1
+
+    return column_spacing
 
 
 class Menu:
@@ -35,17 +42,9 @@ class Menu:
 
     def list_books_page(self):
         print('\n')
-        print(' *' * 11 + ' BOOKS  READ ' + '* ' * 11)
-        print(' ' + '-' * 55)
-        print('|\t\t\tTITLE\t\t\t|\t\t\tAUTHOR\t\t\t|')
+        print(' *' * 17 + ' BOOKS  READ ' + '* ' * 17)
+        print(' ' + '-' * 79)
+        print('|\tID\t|\t\tTITLE\t\t|\t\tAUTHOR\t\t|')
 
 
-if __name__ == '__main__':
-    menu = Menu()
-    # menu.print_main_menu()
-    # print(menu.add_book_prompt())
-    menu.list_books_page()
-
-    number = spaces()
-
-    print(number)
+#if __name__ == '__main__':
