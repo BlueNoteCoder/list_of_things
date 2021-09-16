@@ -55,6 +55,7 @@ class DBUtil:
 
     def create_book_table(self):
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
+                            id integer PRIMARY KEY,
                             book_title TEXT NOT NULL,
                             author_name TEXT NOT NULL); """.format(table_name=self.book_table)
 
