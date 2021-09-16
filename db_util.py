@@ -53,6 +53,7 @@ class DBUtil:
         # Returns the name of the db file
         return 'books_read_db' + DBUtil.file_extension
 
+    # TODO: Add statement to check if table is already created. Then log if it is
     def create_book_table(self):
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
                             id integer PRIMARY KEY,
@@ -90,3 +91,17 @@ class DBUtil:
         self.conn.commit()
         print('Added book to database')
 
+    def delete_book_in_db(self, book_id):
+        stmt = """DELETE FROM {table_name} WHERE id = ?""".format(table_name=self.book_table)
+
+        cursor = self.conn.cursor()
+
+        print('Deleting book')
+        cursor.execute(stmt, (book_id,))
+        self.conn.commit()
+        print('Deleted book')
+
+
+if __name__ == "__main__":
+    db = DBUtil()
+    db.delete_book_in_db(1)
