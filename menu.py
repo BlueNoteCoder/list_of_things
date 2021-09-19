@@ -26,10 +26,13 @@ class Menu:
     def print_main_menu(self):
         """Prints the main actions that the user can perform"""
 
-        print('****** Main Menu ******')
+        # Maybe consolidate main menu into one print stmt
+        print('\n****** Main Menu ******')
         print('-----------------------')
+        print('0: Exit')
         print('1. View Books Read')
-        print('2. Enter in a book')
+        print('2. Add book')
+        print('3. Delete Book')
 
     def add_book_prompt(self):
         """Will ask user for book title and author,
@@ -39,6 +42,19 @@ class Menu:
         author = input('Name of Author -> ')
 
         return [book_title, author]
+
+    def delete_book_prompt(self):
+        """Asks user to look at the list of books already in the
+        the table to gather ID number of book to delete.
+
+        Next, asks for ID and returns it"""
+
+        print('REMINDER: Need ID from the list of books to'
+              '\nbe able to delete the book')
+        id = input('What is the ID number? -> ')
+
+        return id
+
 
     def list_books_page(self):
         print('\n')
