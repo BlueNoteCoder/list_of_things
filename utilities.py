@@ -21,4 +21,7 @@ class Utilities:
         print('Added Book!')
         # Maybe log that the book has been added.
 
+    def delete_book(self, id, db):
+        db.delete_book_in_db(id)
+
 # if __name__ == '__main__':
