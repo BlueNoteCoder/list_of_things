@@ -28,11 +28,15 @@ def list_all_entries(user_selection, db):
     # print(' ' + book[0] + ' ' * (num_spaces - (len(book[0]) + 2)) + book[1])
     if books:
         for book in books:
-            print(' ' * (num_spaces[0] / 2) + str(book[0]) +
-                  ' ' * (num_spaces[1] - num_spaces[0]) + book[1] + ' ' * (num_spaces[1] - len(book[1]) - 6) +
-                  book[2])
+            print(' ' * int(num_spaces[0] / 2) + str(book[0]) +
+                  ' ' * int((num_spaces[1] - num_spaces[0])/2) + book[1] + ' ' * (num_spaces[1] - len(book[1])) +
+                  book[2] + ' ' * (num_spaces[2] - len(book[2])) + book[3])
+
+        print('\nNumber of books: ' + str(utilities.count_num_of_books_in_db(db)))
     else:
         print('There are no books stored.\nPerhaps some reading is in store')
+
+    print()
 
 
 # TODO: Ask user if they want to make another action
@@ -43,19 +47,21 @@ def main():
         menu.print_main_menu()
         user_input = input('\nSelection: ')
 
-        if user_input == 0:
-            user_choices[user_input]("\nKeep on reading!\n")
+        if user_input == '0':
+            user_choices[int(user_input)]("\nKeep on reading!\n")
 
-        if user_input == 1:
-            list_all_entries(user_input, db)
+        if user_input == '1':
+            list_all_entries(int(user_input), db)
 
-        elif user_input == 2:
-            book_title, author = user_choices[user_input]()
-            utilities.add_book(book_title, author, db)
+        elif user_input == '2':
+            book_title, author, read_status = user_choices[int(user_input)]()
+            utilities.add_book(book_title, author, read_status, db)
 
-        elif user_input == 3:
-            book_id = user_choices[user_input]()
+        elif user_input == '3':
+            book_id = user_choices[int(user_input)]()
             utilities.delete_book(book_id, db)
+        else:
+            print('Incorrect selection, please try again!')
 
 
 if __name__ == '__main__':
