@@ -49,16 +49,19 @@ class DBUtil:
     def get_db_file_name(self):
         return self.db_file_name
 
+    # TODO: Fix default name
     def set_db_file_name(self):
         # Returns the name of the db file
         return 'books_read_db' + DBUtil.file_extension
 
     # TODO: Add statement to check if table is already created. Then log if it is
+    # TODO: Add option to update table
     def create_book_table(self):
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
                             id integer PRIMARY KEY,
                             book_title TEXT NOT NULL,
-                            author_name TEXT NOT NULL); """.format(table_name=self.book_table)
+                            author_name TEXT NOT NULL,
+                            read_status TEXT NOT NULL); """.format(table_name=self.book_table)
 
         print('Creating Database')
 
@@ -69,7 +72,8 @@ class DBUtil:
 
     def get_entries(self):
         entries = []
-        stmt = """SELECT * FROM {table_name}""".format(table_name=self.book_table)
+        stmt = """SELECT * FROM {table_name}
+                ORDER BY read_status""".format(table_name=self.book_table)
 
         cursor = self.conn.cursor()
         cursor.execute(stmt)
@@ -80,10 +84,10 @@ class DBUtil:
 
         return entries
 
-    def add_book_to_db(self, title, author):
-        stmt = """INSERT INTO {table_name}(book_title, author_name)
-                    VALUES(?,?) """.format(table_name=self.book_table)
-        info = (title, author)
+    def add_book_to_db(self, title, author, is_read):
+        stmt = """INSERT INTO {table_name}(book_title, author_name, read_status)
+                    VALUES(?,?,?) """.format(table_name=self.book_table)
+        info = (title, author, is_read)
         cursor = self.conn.cursor()
 
         print('Adding book to db')
