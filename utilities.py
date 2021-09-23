@@ -15,9 +15,11 @@ class Utilities:
     def get_all_book_info(self, db):
         return db.get_entries()
 
-    def add_book(self, title, author, db):
+    def add_book(self, title, author, read_status, db):
+        # Implement default for read_status if user leaves it blank
+        book_status = {'y': 'Read', 'n': 'Not Read'}
 
-        db.add_book_to_db(title, author)
+        db.add_book_to_db(title, author, book_status[read_status])
         print('Added Book!')
         # Maybe log that the book has been added.
 
