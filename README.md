@@ -17,10 +17,13 @@ At this time the following is provided for the user:
 
 # Installation
 First, clone the github repo.
+
 Next, find out whether you use python/python3 in terminal.
+
 Then: 
-'''bash
-[python] main.py
-'''
+ 
+```bash
+[python command] main.py
+```
 
 
