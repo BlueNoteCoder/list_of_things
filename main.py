@@ -47,6 +47,8 @@ def main():
         menu.print_main_menu()
         user_input = input('\nSelection: ')
 
+        utilities.new_page()
+
         if user_input == '0':
             user_choices[int(user_input)]("\nKeep on reading!\n")
 
@@ -63,6 +65,8 @@ def main():
         else:
             print('Incorrect selection, please try again!')
 
+        input('\n**Press \'ENTER\' when ready to move on**')
+        utilities.new_page()
 
 if __name__ == '__main__':
     main()
