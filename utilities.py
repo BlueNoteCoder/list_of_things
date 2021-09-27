@@ -26,4 +26,11 @@ class Utilities:
     def delete_book(self, id, db):
         db.delete_book_in_db(id)
 
+    def new_page(self):
+        """Clears any info on terminal"""
+        from os import system
+        cls = lambda: system('cls')
+
+        return cls()
+
 # if __name__ == '__main__':
