@@ -24,6 +24,11 @@ def spaces():
 
 
 class Menu:
+    def get_id_from_user(self):
+        """Asks for ID"""
+
+        id = input('What is the ID of the book you wish to modify? -> ')
+
     def print_main_menu(self):
         """Prints the main actions that the user can perform"""
 
@@ -39,6 +44,8 @@ class Menu:
         """Will ask user for book title and author,
         then will return two"""
 
+        print('****ADD BOOK MENU****')
+        print('---------------------')
         book_title = input('Name of Book -> ')
         author = input('Name of Author -> ')
         read_status = input('Have you read this book?(y/n) -> ')
@@ -46,11 +53,17 @@ class Menu:
         return [book_title, author, read_status]
 
     def delete_book_prompt(self):
-        """Asks for ID and returns it"""
+        print('****DELETE BOOK MENU****')
+        print('---------------------')
 
-        id = input('What is the ID of the book you want deleted? -> ')
+        return Menu.get_id_from_user(self)
 
-        return id
+    def update_entry(self):
+        print('****UPDATE BOOK MENU****')
+        print('------------------------')
+        
+        return Menu.get_id_from_user(self)
+
 
     def list_books_page(self):
         tab = 4
