@@ -60,6 +60,7 @@ def main():
             utilities.add_book(book_title, author, read_status, db)
 
         elif user_input == '3':
+            list_all_entries(1, db)
             book_id = user_choices[int(user_input)]()
             utilities.delete_book(book_id, db)
         else:
