@@ -72,7 +72,7 @@ class DBUtil:
 
     def get_entry(self, book_id):
         """Params:book_id
-        Returns the entry of the given book_id"""
+        Returns the entry of the given book_id in a list"""
 
         entry = []
         cursor = self.conn.cursor()
@@ -80,7 +80,8 @@ class DBUtil:
         rows = cursor.fetchall()
 
         for row in rows:
-            entry.append(row)
+            for column in row:
+                entry.append(column)
 
         return entry
 
@@ -111,6 +112,7 @@ class DBUtil:
         print('Added book to database')
 
     def delete_book_in_db(self, book_id):
+        print(type(book_id))
         stmt = """DELETE FROM {table_name} WHERE id = ?""".format(table_name=self.book_table)
 
         cursor = self.conn.cursor()
