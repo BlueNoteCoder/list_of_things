@@ -82,10 +82,10 @@ class DBUtil:
         for row in rows:
             entry.append(row)
 
-        return row
+        return entry
 
     def get_entries(self):
-        
+
         entries = []
         stmt = """SELECT * FROM {table_name}
                 ORDER BY read_status""".format(table_name=self.book_table)
