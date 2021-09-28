@@ -70,7 +70,22 @@ class DBUtil:
 
         print('Database Created')
 
+    def get_entry(self, book_id):
+        """Params:book_id
+        Returns the entry of the given book_id"""
+
+        entry = []
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT * FROM {table_name} WHERE id=?".format(table_name=self.book_table), (book_id,))
+        rows = cursor.fetchall()
+
+        for row in rows:
+            entry.append(row)
+
+        return row
+
     def get_entries(self):
+        
         entries = []
         stmt = """SELECT * FROM {table_name}
                 ORDER BY read_status""".format(table_name=self.book_table)
@@ -108,4 +123,4 @@ class DBUtil:
 
 if __name__ == "__main__":
     db = DBUtil()
-    db.delete_book_in_db(1)
+    print(db.get_entry(2))
