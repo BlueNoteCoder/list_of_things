@@ -46,14 +46,9 @@ class Menu:
         return [book_title, author, read_status]
 
     def delete_book_prompt(self):
-        """Asks user to look at the list of books already in the
-        the table to gather ID number of book to delete.
+        """Asks for ID and returns it"""
 
-        Next, asks for ID and returns it"""
-
-        print('REMINDER: Need ID from the list of books to'
-              '\nbe able to delete the book')
-        id = input('What is the ID number? -> ')
+        id = input('What is the ID of the book you want deleted? -> ')
 
         return id
 
