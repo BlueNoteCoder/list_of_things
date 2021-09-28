@@ -29,6 +29,8 @@ class Menu:
 
         id = input('What is the ID of the book you wish to modify? -> ')
 
+        return int(id)
+
     def print_main_menu(self):
         """Prints the main actions that the user can perform"""
 
@@ -46,6 +48,7 @@ class Menu:
 
         print('****ADD BOOK MENU****')
         print('---------------------')
+
         book_title = input('Name of Book -> ')
         author = input('Name of Author -> ')
         read_status = input('Have you read this book?(y/n) -> ')
@@ -58,12 +61,15 @@ class Menu:
 
         return Menu.get_id_from_user(self)
 
-    def update_entry(self):
+    def update_entry_prompt(self):
         print('****UPDATE BOOK MENU****')
         print('------------------------')
-        
+
         return Menu.get_id_from_user(self)
 
+    def update_entry(self,):
+        print('****UPDATE BOOK MENU****')
+        print('------------------------')
 
     def list_books_page(self):
         tab = 4
