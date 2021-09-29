@@ -111,6 +111,22 @@ class DBUtil:
         self.conn.commit()
         print('Added book to database')
 
+    def update_book_in_db(self, book_info):
+        """:param book_info is a list containing [id, title, author, read_status]"""
+        book_id, title, author, status = book_info
+
+        stmt = """UPDATE {table_name}
+                SET book_title = ?,
+                    author_name = ?,
+                    read_status = ?
+                WHERE id = ?""".format(table_name=self.book_table)
+
+        info = (title, author, status, book_id)
+
+        cursor = self.conn.cursor()
+        cursor.execute(stmt, info)
+        self.conn.commit()
+
     def delete_book_in_db(self, book_id):
         print(type(book_id))
         stmt = """DELETE FROM {table_name} WHERE id = ?""".format(table_name=self.book_table)
