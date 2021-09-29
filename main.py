@@ -8,7 +8,7 @@ from menu import spaces
 # TODO: Add comments as necessary
 # TODO: Create a function to make list of books appear neat
 # TODO: Fix issue where id in database doesn't decrement after entry is deleted
-# TODO: Destinquish whether its a book you want to/have read
+# TODO: Distinguish whether its a book you want to/have read
 menu = Menu()
 utilities = Utilities()
 db = DBUtil()
@@ -17,7 +17,8 @@ books_read = []
 user_choices = {0: exit,
                 1: menu.list_books_page,
                 2: menu.add_book_prompt,
-                3: menu.delete_book_prompt}
+                3: menu.delete_book_prompt,
+                4: menu.update_entry_prompt}
 
 
 # Entries are centered in each column
@@ -52,7 +53,7 @@ def main():
         if user_input == '0':
             user_choices[int(user_input)]("\nKeep on reading!\n")
 
-        if user_input == '1':
+        elif user_input == '1':
             list_all_entries(int(user_input), db)
 
         elif user_input == '2':
@@ -63,6 +64,13 @@ def main():
             list_all_entries(1, db)
             book_id = user_choices[int(user_input)]()
             utilities.delete_book(book_id, db)
+
+        elif user_input == '4':
+            list_all_entries(1, db)
+            book_id = user_choices[int(user_input)]()
+            entry = utilities.get_book_info(book_id, db)
+
+            utilities.update_book(entry, db)
         else:
             print('Incorrect selection, please try again!')
 
