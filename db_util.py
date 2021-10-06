@@ -86,6 +86,7 @@ class DBUtil:
         return entry
 
     def get_entries(self):
+        """Returns list of all entries in database"""
 
         entries = []
         stmt = """SELECT * FROM {table_name}
