@@ -41,7 +41,7 @@ class Menu:
         print('1. View Books Read')
         print('2. Add book')
         print('3. Delete Book')
-        print('4. Update Book')
+        print('4. Edit Book Info')
 
     def add_book_prompt(self):
         """Will ask user for book title and author,
