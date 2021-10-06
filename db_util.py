@@ -61,7 +61,8 @@ class DBUtil:
                             id integer PRIMARY KEY,
                             book_title TEXT NOT NULL,
                             author_name TEXT NOT NULL,
-                            read_status TEXT NOT NULL); """.format(table_name=self.book_table)
+                            read_status TEXT NOT NULL,
+                            own_status TEXT NOT NULL); """.format(table_name=self.book_table)
 
         print('Creating Database')
 
@@ -101,10 +102,10 @@ class DBUtil:
 
         return entries
 
-    def add_book_to_db(self, title, author, is_read):
-        stmt = """INSERT INTO {table_name}(book_title, author_name, read_status)
-                    VALUES(?,?,?) """.format(table_name=self.book_table)
-        info = (title, author, is_read)
+    def add_book_to_db(self, title, author, is_read, is_owned):
+        stmt = """INSERT INTO {table_name}(book_title, author_name, read_status, own_status)
+                    VALUES(?,?,?,?) """.format(table_name=self.book_table)
+        info = (title, author, is_read, is_owned)
         cursor = self.conn.cursor()
 
         print('Adding book to db')
@@ -113,16 +114,17 @@ class DBUtil:
         print('Added book to database')
 
     def update_book_in_db(self, book_info):
-        """:param book_info is a list containing [id, title, author, read_status]"""
-        book_id, title, author, status = book_info
+        """:param book_info is a list containing [id, title, author, read_status, own_status]"""
+        book_id, title, author, status, own_status = book_info
 
         stmt = """UPDATE {table_name}
                 SET book_title = ?,
                     author_name = ?,
-                    read_status = ?
+                    read_status = ?,
+                    own_status = ?
                 WHERE id = ?""".format(table_name=self.book_table)
 
-        info = (title, author, status, book_id)
+        info = (title, author, status, own_status, book_id)
 
         cursor = self.conn.cursor()
         cursor.execute(stmt, info)

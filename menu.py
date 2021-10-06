@@ -3,13 +3,13 @@ def spaces():
     """Calculates the number of spaces in each column."""
 
     # Copied the text from the list_books_page function
-    columns = '|    ID    |            TITLE            |        AUTHOR        |    STATUS    |'
+    columns = '|    ID    |            TITLE            |        AUTHOR        |    STATUS    |    OWN    |'
     column = columns.split('|')
     col_num = 1
     num = 0
     column_spacing = []
 
-    while col_num < 5:
+    while col_num < 6:
         for char in column[col_num]:
             if char == '\t':
                 # Terminal/Command Prompt tab spacing is 8
@@ -53,8 +53,9 @@ class Menu:
         book_title = input('Name of Book -> ')
         author = input('Name of Author -> ')
         read_status = input('Have you read this book?(y/n) -> ')
+        own_status = input('Do you own the book?(y/n) -> ')
 
-        return [book_title, author, read_status]
+        return [book_title, author, read_status, own_status]
 
     def delete_book_prompt(self):
         print('****DELETE BOOK MENU****')
@@ -76,12 +77,14 @@ class Menu:
         tab = 4
         print('\n')
         print(' *' * 18 + ' BOOKS! ' + '* ' * 18)
-        print(' ' + '-' * 78)
+        print(' ' + '-' * 96)
 
-        # |    ID    |            TITLE            |        AUTHOR        |    STATUS    |
+        # |    ID    |            TITLE            |        AUTHOR        |    READ STATUS    |    OWN    |
         print('|' + ' ' * tab + 'ID' + ' ' * tab + '|' + ' ' * (tab * 3) + 'TITLE' + ' ' * (tab * 3) + '|'
-              + ' ' * (tab * 2) + 'AUTHOR' + ' ' * (tab * 2) + '|' + ' ' * tab + 'STATUS' + ' ' * tab + '|')
-        print(' ' + '-' * 78)
+              + ' ' * (tab * 2) + 'AUTHOR' + ' ' * (tab * 2) + '|' + ' ' * tab + ' READ STATUS' + ' ' * tab + '|'
+              + ' ' * tab + 'OWN' + ' ' * tab + '|'
+              )
+        print(' ' + '-' * 96)
 
 
 #if __name__ == '__main__':

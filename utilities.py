@@ -1,5 +1,6 @@
 class Utilities:
     book_status = {'y': 'Read', 'n': 'Not Read'}
+    own_status = {'y': 'Yes', 'n': 'No'}
 
     def __init__(self):
         print('Utilities created')
@@ -21,24 +22,26 @@ class Utilities:
     def get_all_book_info(self, db):
         return db.get_entries()
 
-    def add_book(self, title, author, read_status, db):
+    def add_book(self, title, author, read_status, own_status, db):
         # Implement default for read_status if user leaves it blank
 
-        db.add_book_to_db(title, author, Utilities.book_status[read_status])
+        db.add_book_to_db(title, author, Utilities.book_status[read_status], Utilities.own_status[own_status])
         print('Added Book!')
         # Maybe log that the book has been added.
 
     def update_book(self, book_info, db):
 
         if book_info:
-            info = ['New Book Title: ', 'New Author: ', 'New Read Status(y/n): ']
+            info = ['New Book Title: ', 'New Author: ', 'New Read Status(y/n): ', 'New Own Status(y/n): ']
             count = 0
-            book_id, book_title, author, read_status = book_info
+            book_id, book_title, author, read_status, own_status = book_info
 
             print('\nPrevious book info will be shown below.'
                   '\nLeave row blank if you want to keep previous entry.'
-                  '\n\nOLD Book Title: {title}\nOLD Author: {name}\nOLD Read Status: {status}\n'.format(title=book_title, name=author, status=read_status))
-
+                  '\n\nOLD Book Title: {title}\nOLD Author: {name}'
+                  '\nOLD Read Status: {r_status}'
+                  '\nOLD Own Status: {o_status}\n'.format(title=book_title, name=author,
+                                                          r_status=read_status, o_status=own_status))
             while count < len(info):
                 user_input = input(info[count])
 
@@ -49,10 +52,11 @@ class Utilities:
                         author = user_input
                     elif count + 1 == 3:
                         read_status = Utilities.book_status[user_input]
-
+                    elif count + 1 == 4:
+                        own_status = Utilities.own_status[user_input]
                 count += 1
 
-            db.update_book_in_db([book_id, book_title, author, read_status])
+            db.update_book_in_db([book_id, book_title, author, read_status, own_status])
         else:
             print('No valid Book Information')
 

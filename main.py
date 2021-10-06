@@ -29,9 +29,11 @@ def list_all_entries(user_selection, db):
     # print(' ' + book[0] + ' ' * (num_spaces - (len(book[0]) + 2)) + book[1])
     if books:
         for book in books:
-            print(' ' * int(num_spaces[0] / 2) + str(book[0]) +
-                  ' ' * int((num_spaces[1] - num_spaces[0])/2) + book[1] + ' ' * (num_spaces[1] - len(book[1])) +
-                  book[2] + ' ' * (num_spaces[2] - len(book[2])) + book[3])
+            print(' ' * (num_spaces[0] // 2) + str(book[0]) +
+                  ' ' * ((num_spaces[0] // 2 + num_spaces[1] // 2) - 2) + book[1] +
+                  ' ' * (num_spaces[1] - len(book[1])) + book[2] +
+                  ' ' * (num_spaces[2] - len(book[2]) - 2) + book[3] +
+                  ' ' * (num_spaces[3] + (len(book[3]) // 2) - 2) + book[4])
 
         print('\nNumber of books: ' + str(utilities.count_num_of_books_in_db(db)))
     else:
@@ -57,8 +59,8 @@ def main():
             list_all_entries(int(user_input), db)
 
         elif user_input == '2':
-            book_title, author, read_status = user_choices[int(user_input)]()
-            utilities.add_book(book_title, author, read_status, db)
+            book_title, author, read_status, own_status = user_choices[int(user_input)]()
+            utilities.add_book(book_title, author, read_status, own_status, db)
 
         elif user_input == '3':
             list_all_entries(1, db)
