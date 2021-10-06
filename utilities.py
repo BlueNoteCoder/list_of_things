@@ -8,7 +8,7 @@ class Utilities:
     def count_num_of_books_in_db(self, db):
         books = db.get_entries()
         num_of_books = 0
-        
+
         for book in books:
             num_of_books += 1
 
@@ -29,31 +29,39 @@ class Utilities:
         # Maybe log that the book has been added.
 
     def update_book(self, book_info, db):
-        info = ['New Book Title: ', 'New Author: ', 'New Read Status(y/n): ']
-        count = 0
-        book_id, book_title, author, read_status = book_info
 
-        print('\nPrevious book info will be shown below.'
-              '\nLeave row blank if you want to keep previous entry.'
-              '\n\nOLD Book Title: {title}\nOLD Author: {name}\nOLD Read Status: {status}\n'.format(title=book_title, name=author, status=read_status))
+        if book_info:
+            info = ['New Book Title: ', 'New Author: ', 'New Read Status(y/n): ']
+            count = 0
+            book_id, book_title, author, read_status = book_info
 
-        while count < len(info):
-            user_input = input(info[count])
+            print('\nPrevious book info will be shown below.'
+                  '\nLeave row blank if you want to keep previous entry.'
+                  '\n\nOLD Book Title: {title}\nOLD Author: {name}\nOLD Read Status: {status}\n'.format(title=book_title, name=author, status=read_status))
 
-            if user_input:
-                if count + 1 == 1:
-                    book_title = user_input
-                elif count + 1 == 2:
-                    author = user_input
-                elif count + 1 == 3:
-                    read_status = Utilities.book_status[user_input]
+            while count < len(info):
+                user_input = input(info[count])
 
-            count += 1
+                if user_input:
+                    if count + 1 == 1:
+                        book_title = user_input
+                    elif count + 1 == 2:
+                        author = user_input
+                    elif count + 1 == 3:
+                        read_status = Utilities.book_status[user_input]
 
-        db.update_book_in_db([book_id, book_title, author, read_status])
+                count += 1
+
+            db.update_book_in_db([book_id, book_title, author, read_status])
+        else:
+            print('No valid Book Information')
 
     def delete_book(self, id, db):
-        db.delete_book_in_db(id)
+
+        if id in db.get_entries():
+            db.delete_book_in_db(id)
+        else:
+            print('{} is not a valid id'.format(id))
 
     def new_page(self):
         """Clears any info on terminal"""
