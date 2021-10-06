@@ -29,7 +29,7 @@ class Menu:
 
         id = input('What is the ID of the book you wish to modify? -> ')
 
-        return int(id)
+        return id
 
     def print_main_menu(self):
         """Prints the main actions that the user can perform"""
