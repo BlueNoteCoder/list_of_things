@@ -31,9 +31,10 @@ def list_all_entries(user_selection, db):
         for book in books:
             print(' ' * (num_spaces[0] // 2) + str(book[0]) +
                   ' ' * ((num_spaces[0] // 2 + num_spaces[1] // 2) - 2) + book[1] +
-                  ' ' * (num_spaces[1] - len(book[1])) + book[2] +
-                  ' ' * (num_spaces[2] - len(book[2]) - 2) + book[3] +
-                  ' ' * (num_spaces[3] + (len(book[3]) // 2) - 2) + book[4])
+                  ' ' * (num_spaces[1] // 2 + num_spaces[2] // 2 - 7) + book[1] +
+                  ' ' * (num_spaces[2] // 2 + num_spaces[3] // 2 - 4) + book[2] +
+                  ' ' * (num_spaces[3] // 2 + num_spaces[4] // 2) + book[3] +
+                  ' ' * (num_spaces[4] // 2 + num_spaces[5] - 4) + book[4])
 
         print('\nNumber of books: ' + str(utilities.count_num_of_books_in_db(db)))
     else:
