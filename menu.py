@@ -3,13 +3,13 @@ def spaces():
     """Calculates the number of spaces in each column."""
 
     # Copied the text from the list_books_page function
-    columns = '|    ID    |            TITLE            |        AUTHOR        |    STATUS    |    OWN    |'
+    columns = '|    ID    |            TITLE            |            SERIES            |        AUTHOR        |    STATUS    |    OWN    |'
     column = columns.split('|')
     col_num = 1
     num = 0
     column_spacing = []
 
-    while col_num < 6:
+    while col_num < 7:  # Number of Columns is 6
         for char in column[col_num]:
             if char == '\t':
                 # Terminal/Command Prompt tab spacing is 8
@@ -52,10 +52,11 @@ class Menu:
 
         book_title = input('Name of Book -> ')
         author = input('Name of Author -> ')
+        series = input('Series Name -> ')
         read_status = input('Have you read this book?(y/n) -> ')
         own_status = input('Do you own the book?(y/n) -> ')
 
-        return [book_title, author, read_status, own_status]
+        return [book_title, series, author, read_status, own_status]
 
     def delete_book_prompt(self):
         print('****DELETE BOOK MENU****')
@@ -76,15 +77,17 @@ class Menu:
     def list_books_page(self):
         tab = 4
         print('\n')
-        print(' *' * 18 + ' BOOKS! ' + '* ' * 18)
-        print(' ' + '-' * 96)
+        print(' *' * 30 + ' BOOKS! ' + '* ' * 30)
+        print(' ' + '-' * 127)
 
-        # |    ID    |            TITLE            |        AUTHOR        |    READ STATUS    |    OWN    |
-        print('|' + ' ' * tab + 'ID' + ' ' * tab + '|' + ' ' * (tab * 3) + 'TITLE' + ' ' * (tab * 3) + '|'
-              + ' ' * (tab * 2) + 'AUTHOR' + ' ' * (tab * 2) + '|' + ' ' * tab + ' READ STATUS' + ' ' * tab + '|'
+        # |    ID    |            TITLE            |            SERIES            |        AUTHOR        |    READ STATUS    |    OWN    |
+        print('|' + ' ' * tab + 'ID' + ' ' * tab + '|'
+              + ' ' * (tab * 3) + 'TITLE' + ' ' * (tab * 3) + '|'
+              + ' ' * (tab * 3) + 'SERIES' + ' ' * (tab * 3) + '|'
+              + ' ' * (tab * 2) + 'AUTHOR' + ' ' * (tab * 2) + '|'
+              + ' ' * tab + ' READ STATUS' + ' ' * tab + '|'
               + ' ' * tab + 'OWN' + ' ' * tab + '|'
               )
-        print(' ' + '-' * 96)
-
+        print(' ' + '-' * 127)
 
 #if __name__ == '__main__':
