@@ -15,15 +15,31 @@ At this time the following is provided for the user:
 	2. Basic CRUD operations
 	3. A way to display all books you've read in a neat fashion
 
-# Installation
-First, clone the github repo.
+## Installation
+Clone the github repo.
 
-Next, find out whether you use python/python3 in terminal.
+## Running List of Things
+Currently runs on Python3.8
 
-Then: 
- 
+### Running on Windows
+1. Make sure you use python command. (Does not support python3 command yet)
+
+Run list_of_things.bat
+
+OR
+
+From the list_of_things directory:
+
 ```bash
-[python command] main.py
+list_of_things OR list_of_things.bat
 ```
 
+### Running on Linux
+From the list_of_things, run terminal
+
+Next:
+
+```bash
+python/python3 main.py
+```
 
