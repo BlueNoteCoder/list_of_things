@@ -72,6 +72,21 @@ class DBUtil:
 
         print('Database Created')
 
+    def get_ids(self):
+        """Returns list of all id's in database"""
+
+        entries = []
+        stmt = """SELECT id FROM {table_name}""".format(table_name=self.book_table)
+
+        cursor = self.conn.cursor()
+        cursor.execute(stmt)
+        rows = cursor.fetchall()
+
+        for row in rows:
+            entries.append(row)
+
+        return entries
+
     def get_entry(self, book_id):
         """Params:book_id
         Returns the entry of the given book_id in a list"""
