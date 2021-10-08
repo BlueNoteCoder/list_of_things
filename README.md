@@ -19,27 +19,36 @@ At this time the following is provided for the user:
 Clone the github repo.
 
 ## Running List of Things
-Currently runs on Python3.8
+- Currently runs on Python3.8
+- Make sure you have python installed
 
-### Running on Windows
+
+### Run on Windows
 1. Make sure you use python command. (Does not support python3 command yet)
 
-Run list_of_things.bat
+2. From the list_of_things directory, open command prompt:
+
+3. Enter: 
+
+```bash
+list_of_things
+```
+
 
 OR
 
-From the list_of_things directory:
 
 ```bash
-list_of_things OR list_of_things.bat
+list_of_things.bat
 ```
 
-### Running on Linux
+
+### Run on Linux
 From the list_of_things, run terminal
 
 Next:
 
 ```bash
-python/python3 main.py
+[python] OR [python3] main.py
 ```
 
