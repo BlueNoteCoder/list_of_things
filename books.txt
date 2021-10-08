@@ -1,0 +1,6 @@
+books_read
+main: C:\Users\spenc\PycharmProjects\List_of_things\books_read.db r/w
+main: C:\Users\spenc\PycharmProjects\List_of_things\books_read.db r/w
+main: C:\Users\spenc\PycharmProjects\List_of_things\books_read_db.db r/w
+books_read
+main: C:\Users\spenc\PycharmProjects\List_of_things\books_read_db.db r/w

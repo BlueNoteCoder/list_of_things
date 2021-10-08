@@ -60,8 +60,10 @@ class DBUtil:
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
                             id integer PRIMARY KEY,
                             book_title TEXT NOT NULL,
+                            series_name TEXT,
                             author_name TEXT NOT NULL,
-                            read_status TEXT NOT NULL); """.format(table_name=self.book_table)
+                            read_status TEXT NOT NULL,
+                            own_status TEXT NOT NULL); """.format(table_name=self.book_table)
 
         print('Creating Database')
 
@@ -70,7 +72,39 @@ class DBUtil:
 
         print('Database Created')
 
+    def get_ids(self):
+        """Returns list of all id's in database"""
+
+        entries = []
+        stmt = """SELECT id FROM {table_name}""".format(table_name=self.book_table)
+
+        cursor = self.conn.cursor()
+        cursor.execute(stmt)
+        rows = cursor.fetchall()
+
+        for row in rows:
+            entries.append(row)
+
+        return entries
+
+    def get_entry(self, book_id):
+        """Params:book_id
+        Returns the entry of the given book_id in a list"""
+
+        entry = []
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT * FROM {table_name} WHERE id=?".format(table_name=self.book_table), (book_id,))
+        rows = cursor.fetchall()
+
+        for row in rows:
+            for column in row:
+                entry.append(column)
+
+        return entry
+
     def get_entries(self):
+        """Returns list of all entries in database"""
+
         entries = []
         stmt = """SELECT * FROM {table_name}
                 ORDER BY read_status""".format(table_name=self.book_table)
@@ -84,10 +118,10 @@ class DBUtil:
 
         return entries
 
-    def add_book_to_db(self, title, author, is_read):
-        stmt = """INSERT INTO {table_name}(book_title, author_name, read_status)
-                    VALUES(?,?,?) """.format(table_name=self.book_table)
-        info = (title, author, is_read)
+    def add_book_to_db(self, title, series, author, is_read, is_owned):
+        stmt = """INSERT INTO {table_name}(book_title, series_name, author_name, read_status, own_status)
+                    VALUES(?,?,?,?,?) """.format(table_name=self.book_table)
+        info = (title,series, author, is_read, is_owned)
         cursor = self.conn.cursor()
 
         print('Adding book to db')
@@ -95,7 +129,26 @@ class DBUtil:
         self.conn.commit()
         print('Added book to database')
 
+    def update_book_in_db(self, book_info):
+        """:param book_info is a list containing [id, title, author, read_status, own_status]"""
+        book_id, title, series, author, status, own_status = book_info
+
+        stmt = """UPDATE {table_name}
+                SET book_title = ?,
+                    series_name = ?,
+                    author_name = ?,
+                    read_status = ?,
+                    own_status = ?
+                WHERE id = ?""".format(table_name=self.book_table)
+
+        info = (title,series, author, status, own_status, book_id)
+
+        cursor = self.conn.cursor()
+        cursor.execute(stmt, info)
+        self.conn.commit()
+
     def delete_book_in_db(self, book_id):
+        print(type(book_id))
         stmt = """DELETE FROM {table_name} WHERE id = ?""".format(table_name=self.book_table)
 
         cursor = self.conn.cursor()
@@ -108,4 +161,4 @@ class DBUtil:
 
 if __name__ == "__main__":
     db = DBUtil()
-    db.delete_book_in_db(1)
+    print(db.get_entry(2))
