@@ -44,11 +44,14 @@ list_of_things.bat
 
 
 ### Run on Linux
-From the list_of_things, run terminal
+Note: Make sure that you use the python command and not python3 command
+
+
+From the list_of_things directory, run terminal
 
 Next:
 
 ```bash
-[python] OR [python3] main.py
+./list_of_things.sh
 ```
 
