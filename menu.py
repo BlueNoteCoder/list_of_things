@@ -29,7 +29,7 @@ class Menu:
 
         id = input('What is the ID of the book you wish to modify? -> ')
 
-        return id
+        return int(id)
 
     def print_main_menu(self):
         """Prints the main actions that the user can perform"""
@@ -81,13 +81,8 @@ class Menu:
         print(' ' + '-' * 127)
 
         # |    ID    |            TITLE            |            SERIES            |        AUTHOR        |    READ STATUS    |    OWN    |
-        print('|' + ' ' * tab + 'ID' + ' ' * tab + '|'
-              + ' ' * (tab * 3) + 'TITLE' + ' ' * (tab * 3) + '|'
-              + ' ' * (tab * 3) + 'SERIES' + ' ' * (tab * 3) + '|'
-              + ' ' * (tab * 2) + 'AUTHOR' + ' ' * (tab * 2) + '|'
-              + ' ' * tab + ' READ STATUS' + ' ' * tab + '|'
-              + ' ' * tab + 'OWN' + ' ' * tab + '|'
-              )
+        print(f"|{'ID':^10}|{'AUTHOR':^29}|{'SERIES':^30}|{'AUTHOR':^22}|{'READ':^20}|{'OWN':^11}|")
+
         print(' ' + '-' * 127)
 
 #if __name__ == '__main__':
