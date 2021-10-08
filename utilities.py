@@ -25,6 +25,9 @@ class Utilities:
     def add_book(self, title, series, author, read_status, own_status, db):
         # Implement default for read_status if user leaves it blank
 
+        if not series:
+            series = 'N/A'
+
         db.add_book_to_db(title, series, author, Utilities.book_status[read_status], Utilities.own_status[own_status])
         print('Added Book!')
         # Maybe log that the book has been added.
@@ -64,9 +67,12 @@ class Utilities:
         else:
             print('No valid Book Information')
 
+    # TODO: Transfer tuple conversion into list to db.get_ids function
     def delete_book(self, id, db):
+        ids = db.get_ids()
+        ids = [item[0] for item in ids]
 
-        if id in db.get_entries():
+        if id in ids:
             db.delete_book_in_db(id)
         else:
             print('{} is not a valid id'.format(id))
