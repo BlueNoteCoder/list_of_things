@@ -20,21 +20,15 @@ user_choices = {0: exit,
                 3: menu.delete_book_prompt,
                 4: menu.update_entry_prompt}
 
-
+# TODO:Make spacing dynamic so that each column fits any length
 # Entries are centered in each column
 def list_all_entries(user_selection, db):
     user_choices[user_selection]()
     books = utilities.get_all_book_info(db)
-    num_spaces = spaces()
-    # print(' ' + book[0] + ' ' * (num_spaces - (len(book[0]) + 2)) + book[1])
+    
     if books:
         for book in books:
-            print(' ' * (num_spaces[0] // 2) + str(book[0]) +
-                  ' ' * ((num_spaces[0] // 2 + num_spaces[1] // 2) - 2) + book[1] +
-                  ' ' * (num_spaces[1] // 2 + num_spaces[2] // 2 - 7) + book[1] +
-                  ' ' * (num_spaces[2] // 2 + num_spaces[3] // 2 - 4) + book[2] +
-                  ' ' * (num_spaces[3] // 2 + num_spaces[4] // 2) + book[3] +
-                  ' ' * (num_spaces[4] // 2 + num_spaces[5] - 4) + book[4])
+            print(f"|{str(book[0]):^10}|{book[1]:^29}|{book[2]:^30}|{book[3]:^22}|{book[4]:^20}|{book[5]:^11}|")
 
         print('\nNumber of books: ' + str(utilities.count_num_of_books_in_db(db)))
     else:
@@ -60,8 +54,8 @@ def main():
             list_all_entries(int(user_input), db)
 
         elif user_input == '2':
-            book_title, author, read_status, own_status = user_choices[int(user_input)]()
-            utilities.add_book(book_title, author, read_status, own_status, db)
+            book_title, series, author, read_status, own_status = user_choices[int(user_input)]()
+            utilities.add_book(book_title, series, author, read_status, own_status, db)
 
         elif user_input == '3':
             list_all_entries(1, db)
@@ -79,6 +73,7 @@ def main():
 
         input('\n**Press \'ENTER\' when ready to move on**')
         utilities.new_page()
+
 
 if __name__ == '__main__':
     main()
