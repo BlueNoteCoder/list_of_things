@@ -46,17 +46,17 @@ class DBUtil:
 
         self.create_book_table()
 
-    def get_db_file_name(self):
+    def get_db_file_name(self) -> str:
         return self.db_file_name
 
-    # TODO: Fix default name
-    def set_db_file_name(self):
+    # TODO: Fix default name + function name
+    def set_db_file_name(self) -> str:
         # Returns the name of the db file
         return 'books_read_db' + DBUtil.file_extension
 
     # TODO: Add statement to check if table is already created. Then log if it is
     # TODO: Add option to update table
-    def create_book_table(self):
+    def create_book_table(self) -> None:
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
                             id integer PRIMARY KEY,
                             book_title TEXT NOT NULL,
@@ -72,7 +72,7 @@ class DBUtil:
 
         print('Database Created')
 
-    def get_ids(self):
+    def get_ids(self) -> list:
         """Returns list of all id's in database"""
 
         entries = []
@@ -87,7 +87,7 @@ class DBUtil:
 
         return entries
 
-    def get_entry(self, book_id):
+    def get_entry(self, book_id: int) -> list:
         """Params:book_id
         Returns the entry of the given book_id in a list"""
 
@@ -102,7 +102,7 @@ class DBUtil:
 
         return entry
 
-    def get_entries(self):
+    def get_entries(self) -> list:
         """Returns list of all entries in database"""
 
         entries = []
@@ -118,7 +118,7 @@ class DBUtil:
 
         return entries
 
-    def add_book_to_db(self, title, series, author, is_read, is_owned):
+    def add_book_to_db(self, title: str, series: str, author: str, is_read: bool, is_owned: bool) -> None:
         stmt = """INSERT INTO {table_name}(book_title, series_name, author_name, read_status, own_status)
                     VALUES(?,?,?,?,?) """.format(table_name=self.book_table)
         info = (title,series, author, is_read, is_owned)
@@ -129,7 +129,7 @@ class DBUtil:
         self.conn.commit()
         print('Added book to database')
 
-    def update_book_in_db(self, book_info):
+    def update_book_in_db(self, book_info: list) -> None:
         """:param book_info is a list containing [id, title, author, read_status, own_status]"""
         book_id, title, series, author, status, own_status = book_info
 
@@ -147,7 +147,7 @@ class DBUtil:
         cursor.execute(stmt, info)
         self.conn.commit()
 
-    def delete_book_in_db(self, book_id):
+    def delete_book_in_db(self, book_id: int) -> None:
         print(type(book_id))
         stmt = """DELETE FROM {table_name} WHERE id = ?""".format(table_name=self.book_table)
 

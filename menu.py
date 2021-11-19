@@ -1,5 +1,5 @@
 # TODO: Maybe return dict instead of list
-def spaces():
+def spaces() -> list:
     """Calculates the number of spaces in each column."""
 
     # Copied the text from the list_books_page function
@@ -24,14 +24,14 @@ def spaces():
 
 
 class Menu:
-    def get_id_from_user(self):
+    def get_id_from_user(self) -> int:
         """Asks for ID"""
 
         id = input('What is the ID of the book you wish to modify? -> ')
 
         return int(id)
 
-    def print_main_menu(self):
+    def print_main_menu(self) -> None:
         """Prints the main actions that the user can perform"""
 
         # Maybe consolidate main menu into one print stmt
@@ -43,7 +43,7 @@ class Menu:
         print('3. Delete Book')
         print('4. Edit Book Info')
 
-    def add_book_prompt(self):
+    def add_book_prompt(self) -> list:
         """Will ask user for book title and author,
         then will return two"""
 
@@ -58,23 +58,19 @@ class Menu:
 
         return [book_title, series, author, read_status, own_status]
 
-    def delete_book_prompt(self):
+    def delete_book_prompt(self) -> int:
         print('****DELETE BOOK MENU****')
         print('---------------------')
 
         return Menu.get_id_from_user(self)
 
-    def update_entry_prompt(self):
+    def update_entry_prompt(self) -> int:
         print('****UPDATE BOOK MENU****')
         print('------------------------')
 
         return Menu.get_id_from_user(self)
 
-    def update_entry(self,):
-        print('****UPDATE BOOK MENU****')
-        print('------------------------')
-
-    def list_books_page(self):
+    def list_books_page(self) -> None:
         tab = 4
         print('\n')
         print(' *' * 30 + ' BOOKS! ' + '* ' * 30)
@@ -85,4 +81,4 @@ class Menu:
 
         print(' ' + '-' * 127)
 
-#if __name__ == '__main__':
+# if __name__ == '__main__':

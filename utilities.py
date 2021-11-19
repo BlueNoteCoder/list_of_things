@@ -6,7 +6,7 @@ class Utilities:
         print('Utilities created')
 
     # Returns the number of books in a database
-    def count_num_of_books_in_db(self, db):
+    def count_num_of_books_in_db(self, db) -> int:
         books = db.get_entries()
         num_of_books = 0
 
@@ -15,14 +15,14 @@ class Utilities:
 
         return num_of_books
 
-    def get_book_info(self, book_id, db):
+    def get_book_info(self, book_id, db) -> list:
 
         return db.get_entry(book_id)
 
-    def get_all_book_info(self, db):
+    def get_all_book_info(self, db) -> list:
         return db.get_entries()
 
-    def add_book(self, title, series, author, read_status, own_status, db):
+    def add_book(self, title: str, series: str, author: str, read_status: str, own_status: str, db) -> None:
         # Implement default for read_status if user leaves it blank
 
         if not series:
@@ -32,7 +32,7 @@ class Utilities:
         print('Added Book!')
         # Maybe log that the book has been added.
 
-    def update_book(self, book_info, db):
+    def update_book(self, book_info: list, db) -> None:
 
         if book_info:
             info = ['New Book Title: ', 'NEW Series', 'New Author: ', 'New Read Status(y/n): ', 'New Own Status(y/n): ']
@@ -68,7 +68,7 @@ class Utilities:
             print('No valid Book Information')
 
     # TODO: Transfer tuple conversion into list to db.get_ids function
-    def delete_book(self, id, db):
+    def delete_book(self, id: int, db) -> None:
         ids = db.get_ids()
         ids = [item[0] for item in ids]
 
@@ -78,6 +78,7 @@ class Utilities:
             print('{} is not a valid id'.format(id))
 
     def new_page(self):
+        # Only works with Windows system currently
         """Clears any info on terminal"""
         from os import system
         cls = lambda: system('cls')

@@ -22,7 +22,7 @@ user_choices = {0: exit,
 
 # TODO:Make spacing dynamic so that each column fits any length
 # Entries are centered in each column
-def list_all_entries(user_selection, db):
+def list_all_entries(user_selection: int, db) -> None:
     user_choices[user_selection]()
     books = utilities.get_all_book_info(db)
     
