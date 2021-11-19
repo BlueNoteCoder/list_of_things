@@ -81,6 +81,7 @@ class Utilities:
         # Only works with Windows system currently
         """Clears any info on terminal"""
         from os import system
+
         cls = lambda: system('cls')
 
         return cls()

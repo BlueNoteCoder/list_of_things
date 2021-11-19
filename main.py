@@ -1,5 +1,3 @@
-import sys
-
 from db_util import DBUtil
 from utilities import Utilities
 from menu import Menu
@@ -20,12 +18,13 @@ user_choices = {0: exit,
                 3: menu.delete_book_prompt,
                 4: menu.update_entry_prompt}
 
+
 # TODO:Make spacing dynamic so that each column fits any length
 # Entries are centered in each column
 def list_all_entries(user_selection: int, db) -> None:
     user_choices[user_selection]()
     books = utilities.get_all_book_info(db)
-    
+
     if books:
         for book in books:
             print(f"|{str(book[0]):^10}|{book[1]:^29}|{book[2]:^30}|{book[3]:^22}|{book[4]:^20}|{book[5]:^11}|")
@@ -39,6 +38,7 @@ def list_all_entries(user_selection: int, db) -> None:
 
 # TODO: Ask user if they want to make another action
 def main():
+    menu.set_terminal_size()
     keep_loopin = True
 
     while keep_loopin:

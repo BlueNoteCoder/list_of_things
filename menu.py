@@ -1,3 +1,7 @@
+from os import system
+from sys import platform
+from subprocess import run
+
 # TODO: Maybe return dict instead of list
 def spaces() -> list:
     """Calculates the number of spaces in each column."""
@@ -24,6 +28,14 @@ def spaces() -> list:
 
 
 class Menu:
+    # TODO: Make window size dynamically
+    def set_terminal_size(self) -> None:
+        """Sets window size"""
+        if platform != "linux":
+            system('mode con: cols=140 lines=40')
+        else:
+            run(["printf", "\'\e[8;40;140t\'"])  # Set terminal size to 140x40
+
     def get_id_from_user(self) -> int:
         """Asks for ID"""
 
