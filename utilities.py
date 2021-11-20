@@ -77,6 +77,45 @@ class Utilities:
         else:
             print('{} is not a valid id'.format(id))
 
+    def num_of_columns(self, entries) -> int:
+        count = 0
+
+        for entry in entries:
+            for column in entry:
+                count += 1
+            break
+
+        return count
+
+    def largest_length_of_word_in_columns(self, db) -> list:
+        """Stores length of largest word in each column into a list"""
+        largest_words = []
+        column = 0
+        count = 1 # 0 is ID column
+        entries = db.get_entries()
+
+        while column < self.num_of_columns(entries):
+            largest_length = 10
+            entry_num = 0  # first entry
+
+
+            while entry_num < len(entries):
+                if type(entries[entry_num][column]) == int:
+                    if entries[entry_num][column] > largest_length:
+                        largest_length = entries[entry_num][column]
+
+                else:
+                    if len(entries[entry_num][column]) > largest_length:
+                        largest_length = len(entries[entry_num][column])
+
+                entry_num += 1
+
+            largest_words.append(largest_length + 5)
+
+            column += 1
+
+        return largest_words
+
     def new_page(self):
         # Only works with Windows system currently
         """Clears any info on terminal"""
@@ -86,4 +125,8 @@ class Utilities:
 
         return cls()
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    from db_util import DBUtil
+    db = DBUtil()
+    util = Utilities()
+    print(util.largest_length_of_word_in_columns(db))

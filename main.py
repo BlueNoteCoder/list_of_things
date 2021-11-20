@@ -19,15 +19,17 @@ user_choices = {0: exit,
                 4: menu.update_entry_prompt}
 
 
-# TODO:Make spacing dynamic so that each column fits any length
 # Entries are centered in each column
 def list_all_entries(user_selection: int, db) -> None:
-    user_choices[user_selection]()
+    max_length_per_column = utilities.largest_length_of_word_in_columns(db)
+    user_choices[user_selection](max_length_per_column)
     books = utilities.get_all_book_info(db)
 
     if books:
         for book in books:
-            print(f"|{str(book[0]):^10}|{book[1]:^29}|{book[2]:^30}|{book[3]:^22}|{book[4]:^20}|{book[5]:^11}|")
+            print(f"|{str(book[0]):^{max_length_per_column[0]}}|{book[1]:^{max_length_per_column[1]}}|"
+                  f"{book[2]:^{max_length_per_column[2]}}|{book[3]:^{max_length_per_column[3]}}|"
+                  f"{book[4]:^{max_length_per_column[4]}}|{book[5]:^{max_length_per_column[5]}}|")
 
         print('\nNumber of books: ' + str(utilities.count_num_of_books_in_db(db)))
     else:
