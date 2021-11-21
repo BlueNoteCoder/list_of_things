@@ -1,3 +1,6 @@
+from subprocess import call
+from os import name
+
 class Utilities:
     book_status = {'y': 'Read', 'n': 'Not Read'}
     own_status = {'y': 'Yes', 'n': 'No'}
@@ -27,7 +30,7 @@ class Utilities:
 
         if title == "" and series == "" and author == "":
             return
-            
+
         if not series:
             series = 'N/A'
 
@@ -120,13 +123,8 @@ class Utilities:
         return largest_words
 
     def new_page(self):
-        # Only works with Windows system currently
         """Clears any info on terminal"""
-        from os import system
-
-        cls = lambda: system('cls')
-
-        return cls()
+        _ = call('clear' if name == 'posix' else 'cls')
 
 if __name__ == '__main__':
     from db_util import DBUtil
