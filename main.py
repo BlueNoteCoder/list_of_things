@@ -22,10 +22,10 @@ user_choices = {0: exit,
 # Entries are centered in each column
 def list_all_entries(user_selection: int, db) -> None:
     max_length_per_column = utilities.largest_length_of_word_in_columns(db)
-    user_choices[user_selection](max_length_per_column)
     books = utilities.get_all_book_info(db)
 
     if books:
+        user_choices[user_selection](max_length_per_column)
         for book in books:
             print(f"|{str(book[0]):^{max_length_per_column[0]}}|{book[1]:^{max_length_per_column[1]}}|"
                   f"{book[2]:^{max_length_per_column[2]}}|{book[3]:^{max_length_per_column[3]}}|"

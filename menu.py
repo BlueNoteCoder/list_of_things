@@ -86,9 +86,14 @@ class Menu:
         return Menu.get_id_from_user(self)
 
     def list_books_page(self, max_length_per_column) -> None:
-        total_length = max_length_per_column[0] + max_length_per_column[1] + max_length_per_column[2]\
-                       + max_length_per_column[3] + max_length_per_column[4] + max_length_per_column[5]
-        tab = 4
+
+        if max_length_per_column:
+            total_length = max_length_per_column[0] + max_length_per_column[1] + max_length_per_column[2] \
+                           + max_length_per_column[3] + max_length_per_column[4] + max_length_per_column[5]
+        else:
+            total_length = 60
+            max_length_per_column = [10, 29, 30, 22, 20, 11]
+
         print('\n')
         print(f"{' ':<{(total_length / 2) - 2}} BOOKS!")
         # print(' *' * 25 + ' BOOKS! ' + '* ' * 25)
