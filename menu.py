@@ -39,7 +39,10 @@ class Menu:
     def get_id_from_user(self) -> int:
         """Asks for ID"""
 
-        id = input('What is the ID of the book you wish to modify? -> ')
+        id = input('What is the ID of the book you wish to modify?(Hit enter to skip) -> ')
+
+        if type(id) != int:
+            return
 
         return int(id)
 

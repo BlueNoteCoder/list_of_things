@@ -62,14 +62,15 @@ def main():
         elif user_input == '3':
             list_all_entries(1, db)
             book_id = user_choices[int(user_input)]()
+
             utilities.delete_book(book_id, db)
 
         elif user_input == '4':
             list_all_entries(1, db)
             book_id = user_choices[int(user_input)]()
-            entry = utilities.get_book_info(book_id, db)
-
-            utilities.update_book(entry, db)
+            if type(book_id) == int:
+                entry = utilities.get_book_info(book_id, db)
+                utilities.update_book(entry, db)
         else:
             print('Incorrect selection, please try again!')
 

@@ -25,6 +25,9 @@ class Utilities:
     def add_book(self, title: str, series: str, author: str, read_status: str, own_status: str, db) -> None:
         # Implement default for read_status if user leaves it blank
 
+        if title == "" and series == "" and author == "":
+            return
+            
         if not series:
             series = 'N/A'
 
