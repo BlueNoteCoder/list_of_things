@@ -1,4 +1,9 @@
-#!/C:\Users\spenc\AppData\Local\Programs\Python\Python38\
+#!/usr/bin/sh
+
+# Find python3
+PYTHON_TYPE=$(which python3)
 
 chmod +x main.py
-python main.py
+$PYTHON_TYPE main.py 
+
+
