@@ -1,4 +1,11 @@
-#!/C:\Users\spenc\AppData\Local\Programs\Python\Python38\
+#!/usr/bin/sh
+
+# Find python3
+PYTHON_TYPE=$(which python3)
+
+[ -z "$PYTHON_TYPE" ] && { echo "Error: Python3 is not installed. Please install to use this script"; exit 1; }
 
 chmod +x main.py
-python main.py
+$PYTHON_TYPE main.py 
+
+

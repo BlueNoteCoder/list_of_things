@@ -39,7 +39,10 @@ class Menu:
     def get_id_from_user(self) -> int:
         """Asks for ID"""
 
-        id = input('What is the ID of the book you wish to modify? -> ')
+        id = input('What is the ID of the book you wish to modify?(Hit enter to skip) -> ')
+
+        if type(id) != str:
+            return
 
         return int(id)
 
@@ -82,15 +85,25 @@ class Menu:
 
         return Menu.get_id_from_user(self)
 
-    def list_books_page(self) -> None:
-        tab = 4
+    def list_books_page(self, max_length_per_column) -> None:
+
+        if max_length_per_column:
+            total_length = max_length_per_column[0] + max_length_per_column[1] + max_length_per_column[2] \
+                           + max_length_per_column[3] + max_length_per_column[4] + max_length_per_column[5]
+        else:
+            total_length = 60
+            max_length_per_column = [10, 29, 30, 22, 20, 11]
+
         print('\n')
-        print(' *' * 30 + ' BOOKS! ' + '* ' * 30)
-        print(' ' + '-' * 127)
+        print(f"{' ':<{(total_length / 2) - 2}} BOOKS!")
+        # print(' *' * 25 + ' BOOKS! ' + '* ' * 25)
+        print(' ' + '-' * (total_length +5))
 
         # |    ID    |            TITLE            |            SERIES            |        AUTHOR        |    READ STATUS    |    OWN    |
-        print(f"|{'ID':^10}|{'AUTHOR':^29}|{'SERIES':^30}|{'AUTHOR':^22}|{'READ':^20}|{'OWN':^11}|")
+        print(f"|{'ID':^{max_length_per_column[0]}}|{'Title':^{max_length_per_column[1]}}|"
+              f"{'SERIES':^{max_length_per_column[2]}}|{'AUTHOR':^{max_length_per_column[3]}}|"
+              f"{'READ':^{max_length_per_column[4]}}|{'OWN':^{max_length_per_column[5]}}|")
 
-        print(' ' + '-' * 127)
+        print(' ' + '-' * (total_length + 5))
 
 # if __name__ == '__main__':
