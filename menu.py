@@ -41,7 +41,7 @@ class Menu:
 
         id = input('What is the ID of the book you wish to modify?(Hit enter to skip) -> ')
 
-        if type(id) != int:
+        if type(id) != str:
             return
 
         return int(id)
