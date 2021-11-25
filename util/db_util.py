@@ -42,7 +42,7 @@ class DBUtil:
         elif len(args) == 1:
             self.db_file_name = args[0] + DBUtil.file_extension
 
-        self.conn = create_connection(self.db_file_name)
+        self.conn = create_connection("databases/" + self.db_file_name)
 
         self.create_book_table()
 
@@ -56,7 +56,7 @@ class DBUtil:
 
     # TODO: Add statement to check if table is already created. Then log if it is
     # TODO: Add option to update table
-    def create_book_table(self) -> None:
+    def create_book_table(self):
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
                             id integer PRIMARY KEY,
                             book_title TEXT NOT NULL,
