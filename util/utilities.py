@@ -1,5 +1,8 @@
 from subprocess import call
 from os import name
+import logging
+logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
+
 
 class Utilities:
     book_status = {'y': 'Read', 'n': 'Not Read'}
@@ -45,6 +48,9 @@ class Utilities:
             count = 0
             book_id, book_title, series, author, read_status, own_status = book_info
 
+            logging.info(f" Old info of book: \n\tBook: {book_title}\n\tSeries: {series}\n\tAuthor: {author}"
+                         f"\n\tHas read book: {read_status}\n\tOwns books: {own_status}")
+
             print('\nPrevious book info will be shown below.'
                   '\nLeave row blank if you want to keep previous entry.'
                   '\n\nOLD Book Title: {title}'
@@ -70,6 +76,8 @@ class Utilities:
                 count += 1
 
             db.update_book_in_db([book_id, book_title, series, author, read_status, own_status])
+            logging.info(f"Book ID of {book_id} has been updated with:\n\tBook: {book_title}\n\tSeries: {series}"
+                         f"\n\tAuthor: {author}\n\tHas read book: {read_status}\n\tOwns books: {own_status}")
         else:
             print('No valid Book Information')
 
@@ -79,6 +87,7 @@ class Utilities:
         ids = [item[0] for item in ids]
 
         if id in ids:
+            logging.info(f"Removing ID: {id} with the following information: {db.get_entry(id)}")
             db.delete_book_in_db(id)
         else:
             print('{} is not a valid id'.format(id))

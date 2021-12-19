@@ -1,17 +1,15 @@
-from db_util import DBUtil
-from utilities import Utilities
-from menu import Menu
-from menu import spaces
+from util.db_util import DBUtil
+from util.utilities import Utilities
+from util.menu import Menu
+from util.menu import spaces
+import logging
 
 # TODO: Add comments as necessary
-# TODO: Create a function to make list of books appear neat
 # TODO: Fix issue where id in database doesn't decrement after entry is deleted
-# TODO: Distinguish whether its a book you want to/have read
 menu = Menu()
 utilities = Utilities()
 db = DBUtil()
 
-books_read = []
 user_choices = {0: exit,
                 1: menu.list_books_page,
                 2: menu.add_book_prompt,
@@ -38,8 +36,8 @@ def list_all_entries(user_selection: int, db) -> None:
     print()
 
 
-# TODO: Ask user if they want to make another action
 def main():
+    logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
     menu.set_terminal_size()
     keep_loopin = True
 
@@ -68,6 +66,7 @@ def main():
         elif user_input == '4':
             list_all_entries(1, db)
             book_id = user_choices[int(user_input)]()
+
             if type(book_id) == int:
                 entry = utilities.get_book_info(book_id, db)
                 utilities.update_book(entry, db)
