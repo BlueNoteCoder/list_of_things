@@ -14,6 +14,7 @@ At this time the following is provided for the user:
 	1. Easy to navigate command-line app
 	2. Basic CRUD operations
 	3. A way to display all books you've read in a neat fashion
+	4. Basic logging information for CRUD operations.
 
 ## Installation
 Clone the github repo.
