@@ -1,6 +1,9 @@
 from os import system
 from sys import platform
 from subprocess import run
+import logging
+logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
+
 
 # TODO: Maybe return dict instead of list
 def spaces() -> list:
@@ -28,13 +31,13 @@ def spaces() -> list:
 
 
 class Menu:
-    # TODO: Make window size dynamically
     def set_terminal_size(self) -> None:
         """Sets window size"""
         if platform != "linux":
             system('mode con: cols=140 lines=40')
         else:
             run(["printf", "\'\e[8;40;140t\'"])  # Set terminal size to 140x40
+
 
     def get_id_from_user(self) -> int:
         """Asks for ID"""
@@ -45,6 +48,7 @@ class Menu:
             return
 
         return int(id)
+
 
     def print_main_menu(self) -> None:
         """Prints the main actions that the user can perform"""
@@ -57,6 +61,7 @@ class Menu:
         print('2. Add book')
         print('3. Delete Book')
         print('4. Edit Book Info')
+
 
     def add_book_prompt(self) -> list:
         """Will ask user for book title and author,
@@ -85,6 +90,7 @@ class Menu:
 
         return Menu.get_id_from_user(self)
 
+
     def list_books_page(self, max_length_per_column) -> None:
 
         if max_length_per_column:
@@ -97,7 +103,7 @@ class Menu:
         print('\n')
         print(f"{' ':<{(total_length / 2) - 2}} BOOKS!")
         # print(' *' * 25 + ' BOOKS! ' + '* ' * 25)
-        print(' ' + '-' * (total_length +5))
+        print(' ' + '-' * (total_length + 5))
 
         # |    ID    |            TITLE            |            SERIES            |        AUTHOR        |    READ STATUS    |    OWN    |
         print(f"|{'ID':^{max_length_per_column[0]}}|{'Title':^{max_length_per_column[1]}}|"
