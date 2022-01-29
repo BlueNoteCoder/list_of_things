@@ -12,22 +12,23 @@ List of Things has just hit the ground running. So be expected to find more feat
 At this time the following is provided for the user:
 
 	1. Easy to navigate command-line app
-	2. Basic CRUD operations
+	2. Basic CRUD operations for Book Keeping
 	3. A way to display all books you've read in a neat fashion
 	4. Basic logging information for CRUD operations.
 
 ## Installation
-Clone the github repo.
+	1. Clone the github repo.
+	2. Run install/create_folders.py
 
 ## Running List of Things
 - Currently runs on Python3.8
-- Make sure you have python installed
+- Make sure you have python3 installed as there is currently no process to check/install python3 automatically.
 
 
 ### Run on Windows
-1. Make sure you use python command. (Does not support python3 command yet)
+1. Open Command Prompt
 
-2. From the list_of_things directory, open command prompt:
+2. cd to list_of_things directory
 
 3. Enter: 
 
@@ -44,13 +45,11 @@ list_of_things.bat
 ```
 
 
-### Run on Linux
-Note: Make sure that you use the python command and not python3 command
+### Run on Linux/Mac
 
-
-From the list_of_things directory, run terminal
-
-Next:
+	1. Open terminal
+	2. cd to list_of_things directory
+	3. Enter:
 
 ```bash
 ./list_of_things.sh
