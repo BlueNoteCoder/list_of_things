@@ -17,8 +17,8 @@ At this time the following is provided for the user:
 	4. Basic logging information for CRUD operations.
 
 ## Installation
-	1. Clone the github repo.
-	2. Run install/create_folders.py
+1. Clone the github repo.
+2. Run install/create_folders.py
 
 ## Running List of Things
 - Currently runs on Python3.8
@@ -47,9 +47,9 @@ list_of_things.bat
 
 ### Run on Linux/Mac
 
-	1. Open terminal
-	2. cd to list_of_things directory
-	3. Enter:
+1. Open terminal
+2. cd to list_of_things directory
+3. Enter:
 
 ```bash
 ./list_of_things.sh
