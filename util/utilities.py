@@ -1,11 +1,13 @@
+import csv
 from subprocess import call
 from os import name
 import logging
+
 logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
 
 
 class Utilities:
-    book_status = {'y': 'Read', 'n': 'Not Read'}
+    book_status = {'y': 'Read', 'n': 'Not Read', 'ip': 'In Progress'}
     own_status = {'y': 'Yes', 'n': 'No'}
 
     def __init__(self):
@@ -44,7 +46,7 @@ class Utilities:
     def update_book(self, book_info: list, db) -> None:
 
         if book_info:
-            info = ['New Book Title: ', 'NEW Series', 'New Author: ', 'New Read Status(y/n): ', 'New Own Status(y/n): ']
+            info = ['New Book Title: ', 'NEW Series:', 'New Author: ', 'New Read Status(y/n/ip): ', 'New Own Status(y/n): ']
             count = 0
             book_id, book_title, series, author, read_status, own_status = book_info
 
@@ -106,13 +108,12 @@ class Utilities:
         """Stores length of largest word in each column into a list"""
         largest_words = []
         column = 0
-        count = 1 # 0 is ID column
+        count = 1  # 0 is ID column
         entries = db.get_entries()
 
         while column < self.num_of_columns(entries):
             largest_length = 10
             entry_num = 0  # first entry
-
 
             while entry_num < len(entries):
                 if type(entries[entry_num][column]) == int:
@@ -135,8 +136,45 @@ class Utilities:
         """Clears any info on terminal"""
         _ = call('clear' if name == 'posix' else 'cls')
 
+    def download_database(self, db):
+        with open('../list_of_things/downloaded_table.csv', 'w') as f:
+            writer = csv.writer(f)
+            writer.writerow(['ID', 'Title', 'Author', 'Series', 'Read', 'Own'])
+            writer.writerows(db.get_entries())
+
+    def upload_database(self, file: str, db):
+        data_from_csv = []
+
+        if ".csv" not in file:
+            print("File needs to be a csv format!")
+            return
+
+        with open(file, newline='') as csv_file:
+            reader = csv.reader(csv_file, delimiter=',')
+            for row in reader:
+                data_from_csv.append(row)
+
+        if len(data_from_csv[0]) != 5:
+            print("Table doesn't have the right columns")
+
+        for i in range(1, len(data_from_csv)):
+            if "Read" not in data_from_csv[i][3] and "Not Read" not in data_from_csv[i][3]:
+                print("Read Status is not in vaild format")
+                continue
+            elif "Yes" not in data_from_csv[i][4] and "No" not in data_from_csv[i][4]:
+                print("Own status is not in vaild format")
+                continue
+            else:
+                print("csv file is in valid format")
+
+            db.add_book_to_db(data_from_csv[i][0], data_from_csv[i][1], data_from_csv[i][2], data_from_csv[i][3], data_from_csv[i][4])
+        print("Valid csv file")
+    # reader = csv.reader()
+
+
 if __name__ == '__main__':
     from db_util import DBUtil
+
     db = DBUtil()
     util = Utilities()
     print(util.largest_length_of_word_in_columns(db))
