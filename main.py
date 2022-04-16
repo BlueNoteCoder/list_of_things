@@ -38,7 +38,7 @@ def list_all_entries(user_selection: int, db) -> None:
 
 def main():
     logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
-    menu.set_terminal_size()
+
     keep_loopin = True
 
     while keep_loopin:
@@ -70,6 +70,11 @@ def main():
             if type(book_id) == int:
                 entry = utilities.get_book_info(book_id, db)
                 utilities.update_book(entry, db)
+        elif user_input == '5':
+            utilities.download_database(db)
+        elif user_input == '6':
+            user_input = input("Enter file ")
+            utilities.upload_database(user_input, db)
         else:
             print('Incorrect selection, please try again!')
 
