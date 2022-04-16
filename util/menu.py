@@ -31,14 +31,6 @@ def spaces() -> list:
 
 
 class Menu:
-    def set_terminal_size(self) -> None:
-        """Sets window size"""
-        if platform != "linux":
-            system('mode con: cols=140 lines=40')
-        else:
-            run(["printf", "\'\e[8;40;140t\'"])  # Set terminal size to 140x40
-
-
     def get_id_from_user(self) -> int:
         """Asks for ID"""
 
@@ -61,6 +53,7 @@ class Menu:
         print('2. Add book')
         print('3. Delete Book')
         print('4. Edit Book Info')
+        print("5: Download table to csv file")
 
 
     def add_book_prompt(self) -> list:
@@ -73,7 +66,7 @@ class Menu:
         book_title = input('Name of Book -> ')
         author = input('Name of Author -> ')
         series = input('Series Name -> ')
-        read_status = input('Have you read this book?(y/n) -> ')
+        read_status = input('Have you read this book?(y/n/ip) -> ')
         own_status = input('Do you own the book?(y/n) -> ')
 
         return [book_title, series, author, read_status, own_status]
