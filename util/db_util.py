@@ -1,23 +1,28 @@
 import sqlite3
+import mysql.connector
 from sqlite3 import Error
 import logging
 
 logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
 
 
-def create_connection(file_name):
+def create_connection():
     connection = None
 
     try:
-        logging.info(f"Establishing connection to {file_name}")
+        logging.info(f"Establishing connection to database")
 
-        connection = sqlite3.connect(file_name)
+        connection = mysql.connector.connect(
+            host="acw2033ndw0at1t7.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+            user="mc2e6u5yh43o8wp0",
+            password="o94m65yedp7r1viw"
+        )
+
     except Error as e:
         print(e)
         logging.info(e)
 
-    logging.info(f"Connection to {file_name} has been established")
-
+    logging.info(f"Connection to database has been established")
     return connection
 
 # TODO: Move string "databases/" in init function and apply it to the set_db_file_name
@@ -33,33 +38,16 @@ class DBUtil:
     file_extension = '.db'
 
     def __init__(self, *args):
-
+        # TODO: Add where db is at
         """ When DBUtil is initialized, it will look for an argument to
         name the db file.
         If no argument is provided, then it will assign the file name.
         """
-
+        self.conn = create_connection()
+        print(self.conn)
         self.book_table = 'books_read'
 
-        if len(args) == 0:
-            self.db_file_name = "databases/" + self.set_db_file_name()
-
-        elif len(args) == 1:
-            self.db_file_name = args[0] + DBUtil.file_extension
-
-        logging.info("Creating database at {database}.".format(database=self.db_file_name))
-
-        self.conn = create_connection(self.db_file_name)
-        logging.info("Database created at {database}.".format(database=self.db_file_name))
         self.create_book_table()
-
-    def get_db_file_name(self) -> str:
-        return self.db_file_name
-
-    # TODO: Fix default name + function name
-    def set_db_file_name(self) -> str:
-        # Returns the name of the db file
-        return 'books_read_db' + DBUtil.file_extension
 
     # TODO: Add statement to check if table is already created. Then log if it is
     # TODO: Add option to update table
