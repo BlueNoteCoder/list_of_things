@@ -10,11 +10,13 @@ menu = Menu()
 utilities = Utilities()
 db = DBUtil()
 
-user_choices = {0: exit,
+user_choices = {
+                0: exit,
                 1: menu.list_books_page,
                 2: menu.add_book_prompt,
                 3: menu.delete_book_prompt,
-                4: menu.update_entry_prompt}
+                4: menu.update_entry_prompt,
+                }
 
 
 # Entries are centered in each column
