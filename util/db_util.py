@@ -1,6 +1,6 @@
 import sqlite3
 import mysql.connector
-from sqlite3 import Error
+from mysql.connector import errorcode
 import logging
 
 logging.basicConfig(filename='logs/session.log', filemode="w", level=logging.DEBUG)
@@ -15,19 +15,26 @@ def create_connection():
         connection = mysql.connector.connect(
             host="acw2033ndw0at1t7.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
             user="mc2e6u5yh43o8wp0",
-            password="o94m65yedp7r1viw"
+            password="o94m65yedp7r1viw",
+            database="tr5u505fwzqrg8t4"
         )
 
-    except Error as e:
-        print(e)
-        logging.info(e)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with your user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+            logging.info(e)
 
     logging.info(f"Connection to database has been established")
     return connection
 
+
 # TODO: Move string "databases/" in init function and apply it to the set_db_file_name
 # TODO: Create an add book to database function
-# TODO: Create ahttps://stranded-deep.fandom.com/wiki/Rudder function to make the necessary tables if needed
+# TODO: Create https://stranded-deep.fandom.com/wiki/Rudder function to make the necessary tables if needed
 # TODO: Make a variable (maybe private) to hold complete path of db file
 
 class DBUtil:
@@ -44,13 +51,14 @@ class DBUtil:
         If no argument is provided, then it will assign the file name.
         """
         self.conn = create_connection()
-        print(self.conn)
+
         self.book_table = 'books_read'
 
         self.create_book_table()
 
     # TODO: Add statement to check if table is already created. Then log if it is
     # TODO: Add option to update table
+
     def create_book_table(self):
         table_stmt = """CREATE TABLE IF NOT EXISTS {table_name} (
                             id integer PRIMARY KEY,
@@ -122,9 +130,11 @@ class DBUtil:
         return entries
 
     def add_book_to_db(self, title: str, series: str, author: str, is_read: bool, is_owned: bool) -> None:
-        stmt = """INSERT INTO {table_name}(book_title, series_name, author_name, read_status, own_status)
-                    VALUES(?,?,?,?,?) """.format(table_name=self.book_table)
-        info = (title, series, author, is_read, is_owned)
+        """Adds book to database"""
+        
+        stmt = "INSERT INTO {table_name}(book_title, author_name, series_name, read_status, own_status) VALUES (%s," \
+               "%s,%s,%s,%s)".format(table_name=self.book_table) 
+        info = (title, author, series, is_read, is_owned)
 
         logging.info(f"Adding new book with following info:\n\tTitle: {title}\n\tSeries: {series}\n\tAuthor: {author}"
                      f"\n\tHas been read: {is_read}\n\tOwns Book: {is_owned}")
@@ -167,4 +177,3 @@ class DBUtil:
 
 if __name__ == "__main__":
     db = DBUtil()
-    print(db.get_entry(2))
