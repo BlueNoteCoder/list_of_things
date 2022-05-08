@@ -99,7 +99,7 @@ class DBUtil:
 
         entry = []
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM {table_name} WHERE id=?".format(table_name=self.book_table), (book_id,))
+        cursor.execute("SELECT * FROM {table_name} WHERE id=%s".format(table_name=self.book_table), (book_id,))
         rows = cursor.fetchall()
 
         # Logging: "Obtaining info for ID: {id}"
@@ -131,7 +131,7 @@ class DBUtil:
 
     def add_book_to_db(self, title: str, series: str, author: str, is_read: bool, is_owned: bool) -> None:
         """Adds book to database"""
-        
+
         stmt = "INSERT INTO {table_name}(book_title, author_name, series_name, read_status, own_status) VALUES (%s," \
                "%s,%s,%s,%s)".format(table_name=self.book_table) 
         info = (title, author, series, is_read, is_owned)
@@ -153,12 +153,12 @@ class DBUtil:
 
         # Store old book info in list
         stmt = """UPDATE {table_name}
-                SET book_title = ?,
-                    series_name = ?,
-                    author_name = ?,
-                    read_status = ?,
-                    own_status = ?
-                WHERE id = ?""".format(table_name=self.book_table)
+                SET book_title = %s,
+                    series_name = %s,
+                    author_name = %s,
+                    read_status = %s,
+                    own_status = %s
+                WHERE id = %s""".format(table_name=self.book_table)
 
         info = (title, series, author, status, own_status, book_id)
 
@@ -168,7 +168,7 @@ class DBUtil:
         self.conn.commit()
 
     def delete_book_in_db(self, book_id: int) -> None:
-        stmt = """DELETE FROM {table_name} WHERE id = ?""".format(table_name=self.book_table)
+        stmt = """DELETE FROM {table_name} WHERE id = %s""".format(table_name=self.book_table)
         cursor = self.conn.cursor()
         cursor.execute(stmt, (book_id,))
         self.conn.commit()
